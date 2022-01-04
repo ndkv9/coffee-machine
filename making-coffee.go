@@ -20,6 +20,11 @@ var coffeePtr = &coffeeAmount
 var disposableCupsPtr = &disposableCups
 var moneyPtr = &moneyAmount
 
+var addedWater int
+var addedMilk int
+var addedCoffee int
+var addedCups int
+
 // get ingredient functions
 func getWater() int {
 	return *waterPtr
@@ -92,7 +97,7 @@ func checkAvailability(option int) bool{
 	}
 }
 
-// take coffee
+// handle buy
 func handleBuy(option int) {
 	switch option {
 	case 1:
@@ -126,6 +131,29 @@ func handleBuy(option int) {
 	}
 }
 
+// handle fill
+func handleFill() {
+	fmt.Println("Write how many ml of water you want to add:")
+	fmt.Scan(&addedWater)
+	*waterPtr += addedWater
+	fmt.Println("Write how many ml of milk you want to add:")
+	fmt.Scan(&addedMilk)
+	*milkPtr += addedMilk
+	fmt.Println("Write how many grams of coffee beans you want to add:")
+	fmt.Scan(&addedCoffee)
+	*coffeePtr += addedCoffee
+	fmt.Println("Write how many disposable coffee cups you want to add:")
+	fmt.Scan(&addedCups)
+	*disposableCupsPtr += addedCups
+}
+
+// handle take
+func handleTake() {
+	moneyToTake := getMoney()
+	*moneyPtr -= moneyToTake
+	fmt.Printf("I gave you $%d\n", moneyToTake)
+}
+
 // handle user action
 func handleAction() {
 	fmt.Println("Write action (buy, fill, take):")
@@ -135,7 +163,13 @@ func handleAction() {
 	case "buy":
 		fmt.Println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:")
 		fmt.Scan(&option)
-
+		handleBuy(option)
+	case "fill":
+		handleFill()
+	case "take":
+		handleTake()
+	default:
+		fmt.Println("The option is not available")
 	}
 }
 
@@ -176,13 +210,7 @@ func calculateCoffeeCups(cups int) {
 }
 
 func main() {
-	// fmt.Println("Write how many ml of water the coffee machine has:")
-	// fmt.Scan(&waterAmount)
-	// fmt.Println("Write how many ml of milk the coffee machine has:")
-	// fmt.Scan(&milkAmount)
-	// fmt.Println("Write how many grams of coffee beans the coffee machine has:")
-	// fmt.Scan(&coffeeAmount)
-	// fmt.Println("Write how many cups of coffee you will need:")
+
 
 	// fmt.Scan(&coffeeCups)
 
