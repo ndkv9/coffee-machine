@@ -82,11 +82,11 @@ func getMin(v1,v2,v3 int) int {
 func checkAvailability(option int) bool{
 	switch option {
 	case 1:
-		return *waterPtr >= 250 && *coffeePtr >= 16
+		return *waterPtr >= 250 && *coffeePtr >= 16 && *disposableCupsPtr >= 1
 	case 2:
-		return *waterPtr >= 350 && *coffeePtr >= 20 && *milkPtr >= 75
+		return *waterPtr >= 350 && *coffeePtr >= 20 && *milkPtr >= 75 && *disposableCupsPtr >= 1
 	case 3:
-		return *waterPtr >= 200 && *coffeePtr >= 12 && *milkPtr >= 100
+		return *waterPtr >= 200 && *coffeePtr >= 12 && *milkPtr >= 100 && *disposableCupsPtr >= 1
 	default:
 		return false
 	}
@@ -96,7 +96,33 @@ func checkAvailability(option int) bool{
 func handleBuy(option int) {
 	switch option {
 	case 1:
-
+		availability := checkAvailability(1)
+		if availability {
+			*waterPtr -= 250
+			*coffeePtr -= 16
+			*disposableCupsPtr -= 1
+			*moneyPtr += 4
+		}
+	case 2:
+		availability := checkAvailability(2)
+		if availability {
+			*waterPtr -= 350
+			*milkPtr -= 75
+			*coffeePtr -= 20
+			*disposableCupsPtr -= 1
+			*moneyPtr += 7
+		}
+	case 3:
+		availability := checkAvailability(3)
+		if availability {
+			*waterPtr -= 200
+			*milkPtr -= 100
+			*coffeePtr -= 12
+			*disposableCupsPtr -= 1
+			*moneyPtr += 6
+		}
+	default:
+		fmt.Println("You pressed wrong option!")
 	}
 }
 
