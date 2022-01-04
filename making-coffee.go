@@ -210,11 +210,7 @@ func calculateCoffeeCups(cups int) {
 }
 
 func main() {
-
-
-	// fmt.Scan(&coffeeCups)
-
-	// calculateCoffeeCups(coffeeCups)
-
+	getState()
+	handleAction()
 	getState()
 }
