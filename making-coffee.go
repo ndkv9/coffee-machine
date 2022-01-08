@@ -158,10 +158,13 @@ func handleTake() {
 func handleAction() {
 	fmt.Println("Write action (buy, fill, take, remaining, exit):")
 	fmt.Scan(&action)
+	fmt.Println("")
 
 	switch action {
 	case "remaining":
 		getState()
+	case "exit":
+		break
 	case "buy":
 		fmt.Println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:")
 		fmt.Scan(&option)
@@ -212,9 +215,5 @@ func calculateCoffeeCups(cups int) {
 }
 
 func main() {
-	getState()
-	fmt.Println("")
 	handleAction()
-	fmt.Println("")
-	getState()
 }
