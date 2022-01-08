@@ -108,6 +108,8 @@ func handleBuy(option int) {
 			*coffeePtr -= 16
 			*disposableCupsPtr -= 1
 			*moneyPtr += 4
+		} else {
+			fmt.Println("Sorry, not enough ingredient!")
 		}
 	case 2:
 		availability := checkAvailability(2)
@@ -117,6 +119,8 @@ func handleBuy(option int) {
 			*coffeePtr -= 20
 			*disposableCupsPtr -= 1
 			*moneyPtr += 7
+		} else {
+			fmt.Println("Sorry, not enough ingredient!")
 		}
 	case 3:
 		availability := checkAvailability(3)
@@ -126,6 +130,8 @@ func handleBuy(option int) {
 			*coffeePtr -= 12
 			*disposableCupsPtr -= 1
 			*moneyPtr += 6
+		} else {
+			fmt.Println("Sorry, not enough ingredient!")
 		}
 	default:
 		fmt.Println("You pressed wrong option!")
