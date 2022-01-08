@@ -52,7 +52,8 @@ func getState() {
 	fmt.Printf("%d of milk\n", getMilk())
 	fmt.Printf("%d of coffee beans\n", getCoffee())
 	fmt.Printf("%d of dusposable cups\n", getDisposableCups())
-	fmt.Printf("%d of money\n", getMoney())
+	fmt.Printf("$%d of money\n", getMoney())
+	fmt.Println("")
 }
 
 // calculating ingredient functions
@@ -156,25 +157,29 @@ func handleTake() {
 
 // handle user action
 func handleAction() {
-	fmt.Println("Write action (buy, fill, take, remaining, exit):")
-	fmt.Scan(&action)
-	fmt.Println("")
+	for {
+		fmt.Println("Write action (buy, fill, take, remaining, exit):")
+		fmt.Scan(&action)
+		fmt.Println("")
 
-	switch action {
-	case "remaining":
-		getState()
-	case "exit":
-		break
-	case "buy":
-		fmt.Println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:")
-		fmt.Scan(&option)
-		handleBuy(option)
-	case "fill":
-		handleFill()
-	case "take":
-		handleTake()
-	default:
-		fmt.Println("The option is not available")
+		if action == "exit" {
+			break
+		}
+
+		switch action {
+		case "remaining":
+			getState()
+		case "buy":
+			fmt.Println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:")
+			fmt.Scan(&option)
+			handleBuy(option)
+		case "fill":
+			handleFill()
+		case "take":
+			handleTake()
+		default:
+			fmt.Println("The option is not available")
+		}
 	}
 }
 
