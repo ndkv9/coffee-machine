@@ -1,8 +1,6 @@
-package main
+package helper
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // available ingredients
 var waterAmount int = 400
@@ -10,7 +8,6 @@ var milkAmount int = 540
 var coffeeAmount int = 120
 var disposableCups int = 9
 var moneyAmount int = 550
-var coffeeCups int
 var action string
 var option int
 
@@ -25,52 +22,54 @@ var addedMilk int
 var addedCoffee int
 var addedCups int
 
+
+
 // get ingredient functions
-func getWater() int {
+func GetWater() int {
 	return *waterPtr
 }
 
-func getMilk() int {
+func GetMilk() int {
 	return *milkPtr
 }
 
-func getCoffee() int {
+func GetCoffee() int {
 	return *coffeePtr
 }
 
-func getDisposableCups() int {
+func GetDisposableCups() int {
 	return *disposableCupsPtr
 }
 
-func getMoney() int {
+func GetMoney() int {
 	return *moneyPtr
 }
 
-func getState() {
+func GetState() {
 	fmt.Println("The coffee machine has:")
-	fmt.Printf("%d of water\n", getWater())
-	fmt.Printf("%d of milk\n", getMilk())
-	fmt.Printf("%d of coffee beans\n", getCoffee())
-	fmt.Printf("%d of dusposable cups\n", getDisposableCups())
-	fmt.Printf("$%d of money\n", getMoney())
+	fmt.Printf("%d of water\n", GetWater())
+	fmt.Printf("%d of milk\n", GetMilk())
+	fmt.Printf("%d of coffee beans\n", GetCoffee())
+	fmt.Printf("%d of dusposable cups\n", GetDisposableCups())
+	fmt.Printf("$%d of money\n", GetMoney())
 	fmt.Println("")
 }
 
 // calculating ingredient functions
-func calculateAmountOfWater(cups int) int {
+func CalculateAmountOfWater(cups int) int {
 	return cups * 200
 }
 
-func calculateAmountOfMilk(cups int) int {
+func CalculateAmountOfMilk(cups int) int {
 	return cups * 50
 }
 
-func calculateAmountOfCoffee(cups int) int {
+func CalculateAmountOfCoffee(cups int) int {
 	return cups * 15
 }
 
 // get min value
-func getMin(v1,v2,v3 int) int {
+func GetMin(v1,v2,v3 int) int {
 	if v1 <= v2 {
 		if v1 <= v3 {
 			return v1
@@ -85,7 +84,7 @@ func getMin(v1,v2,v3 int) int {
 }
 
 // check availability
-func checkAvailability(option int) bool{
+func CheckAvailability(option int) bool{
 	switch option {
 	case 1:
 		return *waterPtr >= 250 && *coffeePtr >= 16 && *disposableCupsPtr >= 1
@@ -99,10 +98,10 @@ func checkAvailability(option int) bool{
 }
 
 // handle buy
-func handleBuy(option int) {
+func HandleBuy(option int) {
 	switch option {
 	case 1:
-		availability := checkAvailability(1)
+		availability := CheckAvailability(1)
 		if availability {
 			*waterPtr -= 250
 			*coffeePtr -= 16
@@ -112,7 +111,7 @@ func handleBuy(option int) {
 			fmt.Println("Sorry, not enough ingredient!")
 		}
 	case 2:
-		availability := checkAvailability(2)
+		availability := CheckAvailability(2)
 		if availability {
 			*waterPtr -= 350
 			*milkPtr -= 75
@@ -123,7 +122,7 @@ func handleBuy(option int) {
 			fmt.Println("Sorry, not enough ingredient!")
 		}
 	case 3:
-		availability := checkAvailability(3)
+		availability := CheckAvailability(3)
 		if availability {
 			*waterPtr -= 200
 			*milkPtr -= 100
@@ -139,7 +138,7 @@ func handleBuy(option int) {
 }
 
 // handle fill
-func handleFill() {
+func HandleFill() {
 	fmt.Println("Write how many ml of water you want to add:")
 	fmt.Scan(&addedWater)
 	*waterPtr += addedWater
@@ -155,14 +154,14 @@ func handleFill() {
 }
 
 // handle take
-func handleTake() {
-	moneyToTake := getMoney()
+func HandleTake() {
+	moneyToTake := GetMoney()
 	*moneyPtr -= moneyToTake
 	fmt.Printf("I gave you $%d\n", moneyToTake)
 }
 
 // handle user action
-func handleAction() {
+func HandleAction() {
 	for {
 		fmt.Println("Write action (buy, fill, take, remaining, exit):")
 		fmt.Scan(&action)
@@ -174,15 +173,15 @@ func handleAction() {
 
 		switch action {
 		case "remaining":
-			getState()
+			GetState()
 		case "buy":
 			fmt.Println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:")
 			fmt.Scan(&option)
-			handleBuy(option)
+			HandleBuy(option)
 		case "fill":
-			handleFill()
+			HandleFill()
 		case "take":
-			handleTake()
+			HandleTake()
 		default:
 			fmt.Println("The option is not available")
 		}
@@ -190,31 +189,31 @@ func handleAction() {
 }
 
 // calculate extra cups
-func calculateExtraCups(water, milk, coffee int) int {
+func CalculateExtraCups(water, milk, coffee int) int {
 	cupOfWater := int(water / 200)
 	cupOfMilk := int(milk / 50)
 	cupOfCoffee := int(coffee / 15)
 
-	extraCups := getMin(cupOfWater, cupOfMilk, cupOfCoffee)
+	extraCups := GetMin(cupOfWater, cupOfMilk, cupOfCoffee)
 	return extraCups
 }
 
 // calculate available coffee cups
-func calculateCoffeeCups(cups int) {
-	requiredWater := calculateAmountOfWater(cups)
-	requiredMilk := calculateAmountOfMilk(cups)
-	requiredCoffee := calculateAmountOfCoffee(cups)
+func CalculateCoffeeCups(cups int) {
+	requiredWater := CalculateAmountOfWater(cups)
+	requiredMilk := CalculateAmountOfMilk(cups)
+	requiredCoffee := CalculateAmountOfCoffee(cups)
 
 	switch {
 		case requiredWater > waterAmount || requiredMilk > milkAmount || requiredCoffee > coffeeAmount:
-			availableCups := calculateExtraCups(waterAmount, milkAmount, coffeeAmount)
+			availableCups := CalculateExtraCups(waterAmount, milkAmount, coffeeAmount)
 			fmt.Printf("No, I can make only %d cups of coffee\n", availableCups)
 		case requiredWater < waterAmount || requiredMilk < milkAmount || requiredCoffee < coffeeAmount:
 			leftOverWater := waterAmount - requiredWater
 			leftOverMilk := milkAmount - requiredMilk
 			leftOverCoffee := coffeeAmount - requiredCoffee
 
-			extraCups := calculateExtraCups(leftOverWater, leftOverMilk, leftOverCoffee)
+			extraCups := CalculateExtraCups(leftOverWater, leftOverMilk, leftOverCoffee)
 			if extraCups == 0 {
 				fmt.Println("Yes, I can make that amount of coffee")
 			} else {
@@ -223,8 +222,4 @@ func calculateCoffeeCups(cups int) {
 		default:
 			fmt.Println("Yes, I can make that amount of coffee")
 	}
-}
-
-func main() {
-	handleAction()
 }
