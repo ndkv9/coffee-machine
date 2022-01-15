@@ -133,7 +133,7 @@ func HandleBuy(option int) {
 			fmt.Println("Sorry, not enough ingredient!")
 		}
 	default:
-		fmt.Println("You pressed wrong option!")
+		fmt.Println("You pressed wrong option, please try again!")
 	}
 }
 
@@ -183,7 +183,7 @@ func HandleAction() {
 		case "take":
 			HandleTake()
 		default:
-			fmt.Println("The option is not available")
+			fmt.Println("The option is not available, please try again!")
 		}
 	}
 }
